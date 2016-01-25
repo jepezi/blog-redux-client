@@ -1,0 +1,46 @@
+.navcontainer {
+  width: 220px;
+  padding-right: 40px;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.heading {
+  font-size: 1em;
+  margin-left: 20px;
+  color: #aaa;
+}
+.navul {
+  li {
+    position: relative;
+    a {
+      padding: 10px 20px;
+      display: inline-block;
+      font-size: 1.5em;
+      color: #4808a4;
+      text-decoration: none;
+      &:hover {
+        color: #9752f9;
+      }
+    }
+  }
+}
+
+.user {
+  margin-left: 20px;
+  border-top: 1px solid #dfd5ec;
+  padding-top: 10px;
+}
+
+li > div > .actionButton {
+  position: absolute;
+  right: 0;
+  top: 12px;
+  color: #777;
+  font-size: 12px;
+  /*line-height: 2.3;*/
+  border: 1px solid #d3c1ed;
+  border-radius: 6px;
+  padding: 4px 8px;
+}

@@ -49,6 +49,7 @@ var loaders = [
       'includePaths[]=' + encodeURIComponent(path.resolve(__dirname, '../src/')) },
   { test: /^((?!.module).)*css$/, loader: 'style!css!postcss!sass?outputStyle=expanded&sourceMap&' +
       'includePaths[]=' + encodeURIComponent(path.resolve(__dirname, '../src/')) },
+  { test: /.json$/, loader: 'json-loader' },
 ];
 
 var externals = {};

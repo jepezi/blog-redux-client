@@ -28,7 +28,7 @@ class Home extends Component {
       return <div>Loading...</div>;
     }
 
-    const posts = this.props.posts.data && this.props.posts.data.slice(0,4).map(post => {
+    const posts = this.props.posts && this.props.posts.map(post => {
       return <div key={post.id}>
         <div className="post-preview">
           <Link to="/posts/1">
@@ -78,7 +78,7 @@ class Home extends Component {
 
 function mapState(state) {
   return {
-    posts: state.posts,
+    posts: state.posts.ids.map(id => state.entities.posts[id]).slice(0,4),
     error: state.error,
   }
 }

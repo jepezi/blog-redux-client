@@ -5,6 +5,7 @@ import { Provider } from 'react-redux';
 
 import configureStore from './redux/configureStore';
 import routes from './routes';
+import DevTools from './redux/DevTools';
 
 const store = configureStore();
 store.dispatch({type: 'greet', name: 'jip'});
@@ -13,7 +14,10 @@ console.warn(store.getState());
 
 ReactDOM.render(
   <Provider store={store}>
-    <Router routes={routes} history={browserHistory} />
+    <div>
+      <Router routes={routes} history={browserHistory} />
+      <DevTools />
+    </div>
   </Provider>,
   document.getElementById('app')
 )

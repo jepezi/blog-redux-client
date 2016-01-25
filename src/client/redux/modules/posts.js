@@ -25,7 +25,6 @@ export default handleActions({
       return { ...state, isLoading: true };
     },
     next: (state, action) => {
-      console.warn(action);
       return {
         ...state,
         ids: state.ids.length < action.payload.result.length

@@ -1,7 +1,20 @@
+// Added for ES6 usage demonstration in devServerAdmin
+//
+// Polyfill for async await
+require('babel-polyfill');
+// Babel require hook
+require('babel-register')({
+  presets: ['es2015', 'react', 'stage-2'],
+  plugins: ['add-module-exports']
+});
+
 const path = require('path');
 const express = require('express');
 const webpack = require('webpack');
 const devPort = 3001;
+// Login
+var bodyParser = require('body-parser');
+var session = require('express-session');
 
 const webpackConfig = require('./hot.config');
 const compiler = webpack(webpackConfig);
@@ -16,10 +29,22 @@ const serverOptions = {
 };
 
 const app = express();
+// Login
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(session({
+  secret: 'shuuuuu',
+  resave: false,
+  saveUninitialized: true,
+  cookie: { maxAge: 60000*60 }
+}));
 
 app.use(require('webpack-dev-middleware')(compiler, serverOptions));
 app.use(require('webpack-hot-middleware')(compiler));
 app.use(express.static('public'));
+
+// Admin Router
+app.use('/admin', require('./devServerAdmin'));
 
 app.get('*', function(req, res) {
   res.sendFile(path.join(__dirname, '..', 'public', 'index.html'));

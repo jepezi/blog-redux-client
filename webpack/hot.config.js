@@ -2,10 +2,16 @@ var path = require('path');
 var webpack = require('webpack');
 var APPPATH = path.resolve(__dirname, '..');
 
-var entry = [
-  'webpack-hot-middleware/client',
-  path.join(APPPATH, 'src/client/main.js')
-];
+var entry = {
+  main: [
+    'webpack-hot-middleware/client',
+    path.join(APPPATH, 'src/client/main.js')
+  ],
+  admin: [
+    'webpack-hot-middleware/client',
+    path.join(APPPATH, 'src/admin/main.js')
+  ]
+};
 var output = {
   path: path.join(APPPATH, 'public', 'dist'),
   filename: '[name].js',
@@ -40,9 +46,9 @@ var loaders = [
     }
   },
   { test: /.module.s?css$/, loader: 'style!css?modules&importLoaders=1&sourceMap&localIdentName=[name]__[local]___[hash:base64:5]!postcss!sass?outputStyle=expanded&sourceMap&' +
-      'includePaths[]=' + encodeURIComponent(path.resolve(__dirname, '../src/')) + 'includePaths[]=' + encodeURIComponent(path.resolve(__dirname, '../srcAdmin/')) },
+      'includePaths[]=' + encodeURIComponent(path.resolve(__dirname, '../src/')) },
   { test: /^((?!.module).)*css$/, loader: 'style!css!postcss!sass?outputStyle=expanded&sourceMap&' +
-      'includePaths[]=' + encodeURIComponent(path.resolve(__dirname, '../src/')) + 'includePaths[]=' + encodeURIComponent(path.resolve(__dirname, '../srcAdmin/')) },
+      'includePaths[]=' + encodeURIComponent(path.resolve(__dirname, '../src/')) },
 ];
 
 var externals = {};
@@ -56,6 +62,7 @@ var plugins = [
 
 // export webpack config object.
 module.exports = {
+  devtool: 'eval-source-map',
   entry: entry,
   output: output,
   module: {

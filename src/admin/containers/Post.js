@@ -92,12 +92,15 @@ class Post extends Component {
     // const post = this.props.posts.find(post => +post.id === +this.props.params.id);
     const { post } = this.props;
 
+    if (error) {
+      return <div>{error}</div>
+    }
+
     if (!post) {
       return <div>Loading...</div>
     }
 
     return <div className={s.container}>
-      {error}
 
       <div><input ref={r => this._title = r} type="text" defaultValue={post.title} placeholder="Title" /></div>
 

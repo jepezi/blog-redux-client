@@ -24,7 +24,7 @@ class Home extends Component {
       return <div>{this.props.error.message}</div>;
     }
 
-    if (this.props.posts.isLoading) {
+    if (this.props.isLoadingPosts) {
       return <div>Loading...</div>;
     }
 
@@ -80,6 +80,7 @@ function mapState(state) {
   return {
     posts: state.posts.ids.map(id => state.entities.posts[id]).slice(0,4),
     error: state.error,
+    isLoadingPosts: state.posts.isLoading,
   }
 }
 

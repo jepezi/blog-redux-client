@@ -16,7 +16,6 @@ import { Provider } from 'react-redux';
 
 import configureStore from './redux/configureStore';
 import routes from './routes';
-import DevTools from './redux/DevTools';
 
 const store = configureStore();
 
@@ -28,10 +27,7 @@ store.dispatch({ type: 'user/load', payload: response });
 
 ReactDOM.render(
   <Provider store={store}>
-    <div>
-      <Router routes={routes} history={appHistory} />
-      <DevTools />
-    </div>
+    <Router routes={routes} history={appHistory} />
   </Provider>,
   document.getElementById('app')
 )

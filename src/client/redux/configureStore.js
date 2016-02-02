@@ -2,15 +2,12 @@ import { createStore, applyMiddleware, compose } from 'redux';
 import reducers from './modules/reducers';
 
 import { thunk, promise, logger } from '../../lib/middlewares';
-import DevTools from './DevTools';
-
-const finalCreateStore = compose(
-  applyMiddleware(thunk, promise, logger),
-  DevTools.instrument()
-)(createStore);
 
 export default function configureStore(initialState) {
-  const store = finalCreateStore(reducers, initialState);
+  const store = createStore(reducers, initialState, compose(
+    applyMiddleware(thunk, promise, logger),
+    typeof window === 'object' && typeof window.devToolsExtension !== 'undefined' ? window.devToolsExtension() : f => f
+  ));
 
   // Hot reload reducers
   if (module.hot) {

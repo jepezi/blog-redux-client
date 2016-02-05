@@ -4,18 +4,18 @@ var APPPATH = path.resolve(__dirname, '..');
 
 var entry = {
   main: [
-    'webpack-hot-middleware/client',
+    'webpack-hot-middleware/client?path=http://localhost:3001/__webpack_hmr',
     path.join(APPPATH, 'src/client/main.js')
   ],
   admin: [
-    'webpack-hot-middleware/client',
+    'webpack-hot-middleware/client?path=http://localhost:3001/__webpack_hmr',
     path.join(APPPATH, 'src/admin/main.js')
   ]
 };
 var output = {
   path: path.join(APPPATH, 'public', 'dist'),
   filename: '[name].js',
-  publicPath: '/dist/',
+  publicPath: 'http://localhost:3001/dist/',
   chunkFilename: '[id].chunk.js'
 };
 var loaders = [
@@ -25,7 +25,7 @@ var loaders = [
     loader: 'babel',
     query: {
       presets: ['es2015', 'react', 'stage-2'],
-      plugins: ['add-module-exports'],
+      plugins: ['add-module-exports', 'transform-runtime'],
       // plugins: ['transform-runtime']
       env: {
         development: {

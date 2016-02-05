@@ -1,11 +1,6 @@
 const shouldNormalize = true;
 import { /*Schema, arrayOf,*/ normalize } from 'normalizr';
 
-import createLogger from 'redux-logger';
-
-// logger mx
-export const logger = createLogger();
-
 // thunk mx
 export function thunk({ dispatch, getState }) {
   return next => action =>

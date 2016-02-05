@@ -35,6 +35,19 @@ export default handleActions({
     }
   },
 
+  'getPost': {
+    start: (state) => {
+      return { ...state, isLoading: true };
+    },
+    next: (state, action) => {
+      return {
+        ...state,
+        ids: union([], state.ids, [action.payload.result]),
+        isLoading: false
+      };
+    }
+  },
+
 }, initialState)
 
 // action creators
@@ -52,5 +65,22 @@ export function getPosts() {
         schema: arrayOf(postSchema)
       },
     });
+  }
+}
+
+export function getPost(postId) {
+  return (dispatch, getState) => {
+    const currentState = getState().posts.ids.filter(id => +id === +postId);
+    if (currentState.length) {
+      return;
+    }
+
+    return dispatch({
+      type: 'getPost',
+      payload: superfetch('http://localhost:9001/api/v1/posts/' + postId),
+      meta: {
+        schema: postSchema
+      },
+    })
   }
 }

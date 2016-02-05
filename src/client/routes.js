@@ -13,7 +13,7 @@ import Home from './containers/Home';
 
 const PostRoute = {
   path: 'posts/:id',
-  getComponent: (location, cb) => {
+  getComponent(location, cb) {
     require.ensure([], require => {
       cb(null, require('./containers/Post'))
     });
@@ -22,7 +22,7 @@ const PostRoute = {
 
 const PostsRoute = {
   path: 'posts',
-  getComponent: (location, cb) => {
+  getComponent(location, cb) {
     require.ensure([], require => {
       cb(null, require('./containers/Posts'))
     });

@@ -31,15 +31,15 @@ class Home extends Component {
     const posts = this.props.posts && this.props.posts.map(post => {
       return <div key={post.id}>
         <div className="post-preview">
-          <Link to="/posts/1">
+          <Link to={"/posts/" + post.id}>
             <h2 className="post-title">
               {post.title}
             </h2>
             <h3 className="post-subtitle">
-              {post.body}
+              {post.body.split(/\s+/, 20).join(' ') + '...'}
             </h3>
           </Link>
-          <p className="post-meta">Posted by <a href="#">Start Bootstrap</a> on September 24, 2014</p>
+          <p className="post-meta">Posted by <a href="#">Start Bootstrap</a> on September 24, 2014, {post.comments.length} comment(s)</p>
         </div>
         <hr />
       </div>
@@ -53,7 +53,7 @@ class Home extends Component {
       <Header
         headerStyle={{backgroundImage: 'url("/img/home-bg.jpg")'}}
       >
-        <h1 className={s.blogname}>Jip Blog</h1>
+        <h1 className={s.blogname}>My Blog</h1>
         <hr className="small" />
         <span className="subheading">A Clean Blog Theme by Start Bootstrap</span>
         <button className="btn btn-primary" onClick={this.toggle.bind(this)}>Toggle</button>
@@ -86,8 +86,8 @@ function mapState(state) {
 
 const Connected = connect(mapState)(Home);
 
-const Fetched = fetchData(function fetchDataFn(store) {
-  store.dispatch(getPosts())
+const Fetched = fetchData(async function fetchDataFn(store) {
+  await store.dispatch(getPosts())
 })(Connected);
 
 export default Fetched;

@@ -18,15 +18,15 @@ class Posts extends Component {
     const posts = this.props.posts && this.props.posts.map(post => {
       return <div key={post.id}>
         <div className="post-preview">
-          <Link to="/posts/1">
+          <Link to={"/posts/" + post.id}>
             <h2 className="post-title">
               {post.title}
             </h2>
             <h3 className="post-subtitle">
-              {post.body}
+              {post.body.split(/\s+/, 20).join(' ') + '...'}
             </h3>
           </Link>
-          <p className="post-meta">Posted by <a href="#">Start Bootstrap</a> on September 24, 2014</p>
+          <p className="post-meta">Posted by <a href="#">Start Bootstrap</a> on September 24, 2014, {post.comments.length} comment(s)</p>
         </div>
         <hr />
       </div>
@@ -62,15 +62,15 @@ class Posts extends Component {
 
 function mapState(state) {
   return {
-    posts: state.posts.ids.map(id => state.entities.posts[id]).slice(0,4),
+    posts: state.posts.ids.map(id => state.entities.posts[id]),
     error: state.error,
   }
 }
 
 const Connected = connect(mapState)(Posts);
 
-const Fetched = fetchData(function fetchDataFn(store) {
-  store.dispatch(getPosts())
+const Fetched = fetchData(async function fetchDataFn(store) {
+  await store.dispatch(getPosts())
 })(Connected);
 
 export default Fetched;

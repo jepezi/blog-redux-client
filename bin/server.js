@@ -5,7 +5,12 @@ require('babel-polyfill');
 // Babel require hook
 require('babel-register')({
   presets: ['es2015', 'react', 'stage-2'],
-  plugins: ['add-module-exports', 'transform-runtime'],
+  plugins: [
+    'add-module-exports',
+    'transform-runtime',
+    'transform-react-constant-elements', // optimize: constant first
+    'transform-react-inline-elements' // optimize
+  ],
   compact: false,
 });
 

@@ -63,20 +63,36 @@ class PostForm extends Component {
     return <div className={s.container}>
       {error}
 
-      <div><input ref={r => this._title = r} type="text" defaultValue="" placeholder="Title" /></div>
+      <h4>Title</h4>
+      <div>
+        <input
+          ref={r => this._title = r}
+          type="text"
+          defaultValue=""
+          placeholder="Title"
+          className="form-control"
+        />
+      </div>
 
+      <h4>Body</h4>
       <textarea
         onChange={this.handleTextChange.bind(this)}
         value={this.state.markdownsrc}
-        className={s.editor}
+        className={s.editor + " form-control"}
         rows="8"
       />
 
+      <h5>Preview</h5>
       <ReactMarkdown
         source={this.state.markdownsrc}
       />
 
-      <button type="submit" onClick={this.handleSave.bind(this)}>Save</button>
+      <button
+        type="submit" onClick={this.handleSave.bind(this)}
+        className="btn btn-primary"
+      >
+        Create
+      </button>
     </div>;
   }
 }

@@ -74,7 +74,7 @@ class Post extends Component {
       });
 
     return <div>
-      <h3>Comments</h3>
+      <h4>Comments</h4>
       {lists}
     </div>
   }
@@ -101,21 +101,35 @@ class Post extends Component {
     }
 
     return <div className={s.container}>
+      <h4>Title</h4>
+      <div>
+        <input
+          ref={r => this._title = r}
+          type="text"
+          defaultValue={post.title} placeholder="Title"
+          className="form-control"
+        />
+      </div>
 
-      <div><input ref={r => this._title = r} type="text" defaultValue={post.title} placeholder="Title" /></div>
-
+      <h4>Body</h4>
       <textarea
         onChange={this.handleTextChange.bind(this)}
         value={this.state.markdownsrc}
-        className={s.editor}
+        className={s.editor + " form-control"}
         rows="8"
       />
 
+      <h5>Preview</h5>
       <ReactMarkdown
         source={this.state.markdownsrc}
       />
 
-      <button type="submit" onClick={this.handleSave.bind(this)}>Save</button>
+      <button
+        type="submit" onClick={this.handleSave.bind(this)}
+        className="btn btn-primary"
+      >
+        Save
+      </button>
 
       {this.renderComments()}
 

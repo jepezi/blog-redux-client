@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
+import ReactMarkdown from 'react-markdown';
 import fetchData from '../../lib/fetchData.js';
 
 import Header from '../components/Header';
@@ -26,7 +27,9 @@ class Post extends Component {
       <div className="container">
         <div className="row">
           <div className="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-            {post.body}
+            <ReactMarkdown
+              source={post.body}
+            />
           </div>
         </div>
         <div className="row">

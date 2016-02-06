@@ -1,15 +1,20 @@
 import React, { Component, PropTypes } from 'react';
-import { Link } from 'react-router';
 import { connect } from 'react-redux';
 import ReactMarkdown from 'react-markdown';
-import { getPost, updatePost, createPost } from '../redux/modules/posts';
+import { createPost } from '../redux/modules/posts';
 
 const s = require('./Post.module.scss');
 
 class PostForm extends Component {
   constructor(props) {
     super(props);
-    this.state = { markdownsrc: this.props.post ? this.props.post.body : '' }
+    this.state = {
+      markdownsrc: this.props.post
+        ? this.props.post.body
+        : ''
+    };
+    this.handleTextChange = this.handleTextChange.bind(this)
+    this.handleSave = this.handleSave.bind(this)
   }
 
   handleTextChange(e) {
@@ -26,7 +31,7 @@ class PostForm extends Component {
   //   }
   // }
 
-  handleSave(e) {
+  handleSave() {
     const title = this._title.value;
     const body = this.state.markdownsrc;
 
@@ -40,11 +45,11 @@ class PostForm extends Component {
       title: this._title.value,
       body: this.state.markdownsrc
     }))
-      .then(action => {
+      .then(() => {
         this.context.router.push({
           pathname: '/posts',
-          null,
-          state: {flash: 'success'}
+          null, // eslint-disable-line
+          state: { flash: 'success' }
         });
       })
   }
@@ -53,11 +58,11 @@ class PostForm extends Component {
     let error = '';
 
     if (this.props.error) {
-      error = 'Error! ' + this.props.error.message;
+      error = `Error! ${this.props.error.message}`;
     }
 
     if (this.state.errors) {
-      error = 'Error! ' + this.state.errors;
+      error = `Error! ${this.state.errors}`;
     }
 
     return <div className={s.container}>
@@ -76,9 +81,9 @@ class PostForm extends Component {
 
       <h4>Body</h4>
       <textarea
-        onChange={this.handleTextChange.bind(this)}
+        onChange={this.handleTextChange}
         value={this.state.markdownsrc}
-        className={s.editor + " form-control"}
+        className={`${s.editor} form-control`}
         rows="8"
       />
 
@@ -88,7 +93,7 @@ class PostForm extends Component {
       />
 
       <button
-        type="submit" onClick={this.handleSave.bind(this)}
+        type="submit" onClick={this.handleSave}
         className="btn btn-primary"
       >
         Create
@@ -96,6 +101,12 @@ class PostForm extends Component {
     </div>;
   }
 }
+
+PostForm.propTypes = {
+  post: PropTypes.array,
+  dispatch: PropTypes.func,
+  error: PropTypes.object,
+};
 
 PostForm.contextTypes = {
   router: React.PropTypes.object.isRequired

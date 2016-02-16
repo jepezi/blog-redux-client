@@ -1,3 +1,4 @@
+var fs = require('fs');
 var path = require('path');
 var webpack = require('webpack');
 var Clean = require('clean-webpack-plugin');
@@ -141,6 +142,17 @@ module.exports = [
     publicPath: publicPath,
     libraryTarget: 'commonjs2'
   },
+  // externals: fs.readdirSync(
+  //   path.resolve(__dirname, '..', 'node_modules')
+  // ).concat([
+  //   'react-dom/server',
+  //   'react/dist/react.min',
+  //   'lodash',
+  // ]).reduce(function (ext, mod) {
+  //   console.warn('module: ', mod);
+  //   ext[mod] = 'commonjs ' + mod
+  //   return ext
+  // }, {}),
   externals: [
     /^react(.*)?$/,
     /^history(\/.*)?$/,

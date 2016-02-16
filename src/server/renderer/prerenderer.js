@@ -35,7 +35,6 @@ export default class MainRenderer {
           redirectPath += '?intend=' + redirectLocation.state.intend;
         }
         callback(null, redirectPath, null);
-        // res.redirect(301, redirectLocation.pathname + redirectLocation.search);
         return;
       }
 
@@ -53,13 +52,19 @@ export default class MainRenderer {
       const { params, location } = renderProps;
 
       const prefetchMethods = renderProps.components
-        .filter((component) => getFetchData(component))
-        .map(getFetchData);
+        .filter(c => c.fetchData)
+        .reduce((acc, c) => acc.concat(c.fetchData), []);
 
-      for (const prefetch of prefetchMethods) {
-        if (!prefetch) continue;
-        // await the promise
-        await prefetch(store, params, location);
+      const promises = prefetchMethods
+        .map(prefetch => prefetch(store, params, location));
+
+      // wait for fetched state data in store
+      try {
+        await Promise.all(promises);
+      } catch (e) {
+        console.warn('error', e);
+      } finally {
+        console.warn('finally');
       }
 
       // all fetched data is done

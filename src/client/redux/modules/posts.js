@@ -32,6 +32,12 @@ export default handleActions({
           : union([], state.ids, action.payload.result),
         isLoading: false
       };
+    },
+    throw: (state, action) => {
+      return {
+        ...state,
+        isLoading: false
+      }
     }
   },
 

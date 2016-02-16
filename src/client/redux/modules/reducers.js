@@ -17,7 +17,7 @@ function counter(state = 0, action) {
 
 function error(state = null, action) {
   if (action.error) {
-    return action.payload;
+    return action.payload || 'error!';
   }
 
   return state;
